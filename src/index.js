@@ -34,6 +34,51 @@ app.use(express.urlencoded({ extended: false }));// permite recibir datos enviad
     });
   });
 
+  app.get("/mascotas/nueva", (req, res) => {
+    res.render("mascotas/nueva", {
+      titulo: "Registrar nueva mascota",
+    });
+  });
+
+  app.post("/mascotas", (req, res) => {
+    
+    const nombre = req.body.nombre?.trim();
+    const especie = req.body.especie?.trim();
+    const edad = Number(req.body.edad);
+    const descripcion = req.body.descripcion?.trim();
+    const estado = req.body.estado?.trim();
+
+    const camposCompletos = nombre && especie && descripcion && estado && req.body.edad !== "" && req.body.edad !== undefined;
+    const edadValida = Number.isInteger(edad) && edad >= 0;
+
+    if (!camposCompletos || !edadValida) {
+      return res.status(400).render("mascotas/nueva", {
+        titulo: "Registrar nueva mascota",
+        error: "Todos los campos son obligatorios y la edad debe ser un numero valido mayor o igual a 0.",
+        mascota: {
+          nombre,
+          especie,
+          edad: req.body.edad,
+          descripcion,
+          estado,
+        },
+      });
+    }
+
+    const nuevaMascota = {
+      id: mascotas.length === 0 ? 1 : Math.max(...mascotas.map((mascota) => mascota.id)) + 1,
+      nombre,
+      especie,
+      edad,
+      descripcion,
+      estado,
+      imagen: "/img/mascota1.svg",
+    };
+
+    mascotas.push(nuevaMascota);
+    res.redirect("/mascotas");
+  });
+
 // Ruta para ver el detalle de una mascota por ID
 app.get("/mascotas/:id", (req, res) => {
   const id = Number(req.params.id);

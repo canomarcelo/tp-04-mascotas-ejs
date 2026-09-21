@@ -181,6 +181,45 @@ p {
 	margin-top: 25px;
 }
 
+/* Formulario de mascota */
+.pagina-formulario {
+	padding: 25px;
+	border: 1px solid #cccccc;
+	background-color: #ffffff;
+}
+
+.formulario-mascota {
+	display: grid;
+	gap: 20px;
+}
+
+.campo {
+	display: grid;
+	gap: 8px;
+}
+
+.campo label {
+	font-weight: bold;
+	color: #24527a;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #bbbbbb;
+	border-radius: 4px;
+	font: inherit;
+}
+
+.acciones-formulario {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	align-items: center;
+}
+
 /* Mensaje de error */
 .pagina-error {
 	padding: 25px;
