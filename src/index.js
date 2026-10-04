@@ -41,7 +41,6 @@ app.use(express.urlencoded({ extended: false }));// permite recibir datos enviad
   });
 
   app.post("/mascotas", (req, res) => {
-    
     const nombre = req.body.nombre?.trim();
     const especie = req.body.especie?.trim();
     const edad = Number(req.body.edad);
@@ -56,11 +55,11 @@ app.use(express.urlencoded({ extended: false }));// permite recibir datos enviad
         titulo: "Registrar nueva mascota",
         error: "Todos los campos son obligatorios y la edad debe ser un numero valido mayor o igual a 0.",
         mascota: {
-          nombre,
-          especie,
-          edad: req.body.edad,
-          descripcion,
-          estado,
+          nombre: nombre || "",
+          especie: especie || "",
+          edad: req.body.edad ?? "",
+          descripcion: descripcion || "",
+          estado: estado || "",
         },
       });
     }
@@ -72,7 +71,7 @@ app.use(express.urlencoded({ extended: false }));// permite recibir datos enviad
       edad,
       descripcion,
       estado,
-      imagen: "/img/mascota1.svg",
+      imagen: "/img/mascota.svg",
     };
 
     mascotas.push(nuevaMascota);
